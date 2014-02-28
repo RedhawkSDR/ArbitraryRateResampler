@@ -22,7 +22,7 @@ program.  If not, see http://www.gnu.org/licenses/.
   <author>
     <name>null</name>
   </author>
-  <description>Resample data stream at output rates which are not limited to integer value multiples of the input sampling rate.  This component can increase or decrease the sample rate pending configuration.  No anti-aliasing filtering is included - so users must use this component with caution when decreasing the sampling rate to avoid aliasing or pre-filter themselves in an upstream component if required.</description>
+  <description>Resample data stream at output rates which are not limited to integer multiples of the input sampling rate.  This component can increase or decrease the sample rate.  No anti-aliasing filtering is included, so users must use this component with caution when decreasing the sampling rate to avoid aliasing or pre-filter themselves in an upstream component if required.</description>
   <propertyfile type="PRF">
     <localfile name="ArbitraryRateResampler.prf.xml"/>
   </propertyfile>

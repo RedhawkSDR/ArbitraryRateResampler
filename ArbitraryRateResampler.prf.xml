@@ -25,13 +25,13 @@ program.  If not, see http://www.gnu.org/licenses/.
     <action type="external"/>
   </simple>
   <simple id="quantization" mode="readwrite" type="ulong">
-    <description>If quantization >0 we will quantize our Lanczos kernal to convert trigonometric calucations to be a rounded lookup.  This trades off speed for precision - using quantization can dramatically increase your performance.  If you use quantization you should make sure it is not too small (>1e3)</description>
+    <description>If quantization >0 we will quantize our Lanczos kernel to convert trigonometric calculations to be a rounded lookup.  This trades off speed for precision - using quantization can dramatically increase your performance.  If you use quantization you should make sure it is not too small (>1e3)</description>
     <value>0</value>
     <kind kindtype="configure"/>
     <action type="external"/>
   </simple>
   <simple id="a" mode="readwrite" type="ushort">
-    <description>&quot;a&quot; determines the size fo the Lanczos kernal for interpolating.  2*a points input samples are used to calculate each output data point.  Thus, increasing &quot;a&quot; increases acuracy at the expense of computational performance.</description>
+    <description>&quot;a&quot; determines the size of the Lanczos kernel for interpolating.  2*a points input samples are used to calculate each output data point.  Thus, increasing &quot;a&quot; increases accuracy at the expense of computational performance.</description>
     <value>5</value>
     <kind kindtype="configure"/>
     <action type="external"/>
