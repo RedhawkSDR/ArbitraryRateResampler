@@ -24,7 +24,9 @@ from omniORB import any
 import time
 from ossie.cf import CF
 
-import matplotlib.pyplot
+ENABLE_PLOTS=False
+if ENABLE_PLOTS:
+    import matplotlib.pyplot
 
 from ossie.utils.sb.io_helpers import compareSRI
 from ossie.utils.bulkio.bulkio_data_helpers import ArraySink 
@@ -34,8 +36,6 @@ from bulkio.bulkioInterfaces import BULKIO__POA as _BULKIO__POA
 from bulkio.bulkioInterfaces import BULKIO, BULKIO__POA
 
 import math
-
-ENABLE_PLOTS=False
 
 class MyArraySink(ArraySink):
     """Subclas ArraySink to help track data in streams more effectively
