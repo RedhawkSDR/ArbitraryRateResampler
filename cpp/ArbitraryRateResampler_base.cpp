@@ -129,13 +129,14 @@ void ArbitraryRateResampler_base::releaseObject() throw (CORBA::SystemException,
     Resource_impl::releaseObject();
 }
 
+
 void ArbitraryRateResampler_base::loadProperties()
 {
     addProperty(outputRate,
                 "outputRate",
                 "",
                 "readwrite",
-                "",
+                "Hz",
                 "external",
                 "configure");
 
@@ -158,3 +159,5 @@ void ArbitraryRateResampler_base::loadProperties()
                 "configure");
 
 }
+
+
