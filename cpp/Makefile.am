@@ -41,5 +41,5 @@ distclean-local:
 include $(srcdir)/Makefile.am.ide
 ArbitraryRateResampler_SOURCES = $(redhawk_SOURCES_auto)
 ArbitraryRateResampler_CXXFLAGS = -Wall $(PROJECTDEPS_CFLAGS) $(BOOST_CPPFLAGS) $(INTERFACEDEPS_CFLAGS) $(redhawk_INCLUDES_auto) -I../../dsp/inc
-ArbitraryRateResampler_LDADD = $(PROJECTDEPS_LIBS) $(BOOST_LDFLAGS) $(BOOST_THREAD_LIB) $(INTERFACEDEPS_LIBS) $(redhawk_LDADD_auto) -ldsp
+ArbitraryRateResampler_LDADD = $(PROJECTDEPS_LIBS) $(BOOST_LDFLAGS) $(BOOST_THREAD_LIB) $(BOOST_SYSTEM_LIB) $(INTERFACEDEPS_LIBS) $(redhawk_LDADD_auto) -ldsp
 ArbitraryRateResampler_LDFLAGS = -Wall $(redhawk_LDFLAGS_auto) -L../../dsp/Release
