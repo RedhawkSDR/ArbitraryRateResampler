@@ -20,7 +20,7 @@ program.  If not, see http://www.gnu.org/licenses/.
 <softpkg id="DCE:092da715-b30b-4cca-97db-acb22372ba7d" name="ArbitraryRateResampler" type="sca_compliant">
   <title></title>
   <author>
-    <name>null</name>
+    <name>REDHAWK</name>
   </author>
   <description>Resamples a data stream at output rates which are not limited to integer multiples of the input sampling rate.  This component can increase or decrease the sample rate.  No anti-aliasing filtering is included, so users must use this component with caution when decreasing the sampling rate to avoid aliasing or pre-filter themselves in an upstream component if required.</description>
   <propertyfile type="PRF">
@@ -30,7 +30,7 @@ program.  If not, see http://www.gnu.org/licenses/.
     <localfile name="ArbitraryRateResampler.scd.xml"/>
   </descriptor>
   <implementation id="cpp">
-    <description>The implementation contains descriptive information about the template for a software component.</description>
+    <description>C++ implementation</description>
     <code type="Executable">
       <localfile name="cpp/ArbitraryRateResampler"/>
       <entrypoint>cpp/ArbitraryRateResampler</entrypoint>
@@ -41,8 +41,8 @@ program.  If not, see http://www.gnu.org/licenses/.
     <os name="Linux"/>
     <dependency type="runtime_requirements">
       <softpkgref>
-        <localfile name="/components/dsp/dsp.spd.xml"/>
-        <implref refid="firstImplementation"/>
+        <localfile name="/deps/dsp/dsp.spd.xml"/>
+        <implref refid="cpp"/>
       </softpkgref>
     </dependency>
     <processor name="x86"/>
