@@ -44,8 +44,14 @@ Requires:       redhawk >= 1.10.0
 BuildRequires:  bulkioInterfaces
 Requires:       bulkioInterfaces
 
+# Softpkg requirements
+BuildRequires:  dsp-devel >= 1.0.0
+Requires:       dsp >= 1.0.0
+
 %description
 Component %{name}
+ * Commit: __REVISION__
+ * Source Date/Time: __DATETIME__
 
 
 %prep
