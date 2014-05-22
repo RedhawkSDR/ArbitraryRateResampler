@@ -35,16 +35,13 @@ class ArbitraryRateResampler_i : public ArbitraryRateResampler_base
         ArbitraryRateResampler_i(const char *uuid, const char *label);
         ~ArbitraryRateResampler_i();
         int serviceFunction();
-        void configure (const CF::Properties& configProperties)
-            throw (CF::PropertySet::PartialConfiguration,
-                   CF::PropertySet::InvalidConfiguration, CORBA::SystemException);
 
     private:
         std::map<std::string, ArbitraryRateResamplerClass*>resamplers;
 
-        void outputRateChanged(const std::string&);
-        void quantizationChanged(const std::string&);
-        void aChanged(const std::string&);
+        void aChanged(const unsigned short *oldValue, const unsigned short *newValue);
+        void outputRateChanged(const float *oldValue, const float *newValue);
+        void quantizationChanged(const unsigned int *oldValue, const unsigned int *newValue);
         void remakeResamplers();
         void remakeResampler(float* inputRate, std::map<std::string, ArbitraryRateResamplerClass*>::iterator& i);
         std::vector<float> realOut;

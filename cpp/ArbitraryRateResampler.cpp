@@ -33,10 +33,11 @@ ArbitraryRateResampler_i::ArbitraryRateResampler_i(const char *uuid, const char 
     refreshSRI(false)
 {
 	//set-up property callbacks
-	setPropertyChangeListener("outputRate", this, &ArbitraryRateResampler_i::outputRateChanged);
-	setPropertyChangeListener("quantization", this, &ArbitraryRateResampler_i::quantizationChanged);
-	setPropertyChangeListener("a", this, &ArbitraryRateResampler_i::aChanged);
+	addPropertyChangeListener("a", this, &ArbitraryRateResampler_i::aChanged);
+	addPropertyChangeListener("outputRate", this, &ArbitraryRateResampler_i::outputRateChanged);
+	addPropertyChangeListener("quantization", this, &ArbitraryRateResampler_i::quantizationChanged);
 
+	outputRate = 1.0;
 }
 
 ArbitraryRateResampler_i::~ArbitraryRateResampler_i()
@@ -44,15 +45,6 @@ ArbitraryRateResampler_i::~ArbitraryRateResampler_i()
 	//delete  all our resamplers to avoid a memory leak
 	for (std::map<std::string, ArbitraryRateResamplerClass*>::iterator i = resamplers.begin(); i!=resamplers.end(); i++)
 		delete i->second;
-}
-
-void ArbitraryRateResampler_i::configure (const CF::Properties& configProperties)
-    throw (CF::PropertySet::PartialConfiguration,
-           CF::PropertySet::InvalidConfiguration, CORBA::SystemException)
-{
-    //override configure to keep the service function from executing in the midst of a configure
-	boost::mutex::scoped_lock lock(resampler_mutex);
-	ArbitraryRateResampler_base::configure(configProperties);
 }
 
 int ArbitraryRateResampler_i::serviceFunction()
@@ -182,18 +174,27 @@ int ArbitraryRateResampler_i::serviceFunction()
     return NORMAL;
 }
 
-void ArbitraryRateResampler_i::outputRateChanged(const std::string&)
+void ArbitraryRateResampler_i::aChanged(const unsigned short *oldValue, const unsigned short *newValue)
+{
+	boost::mutex::scoped_lock lock(resampler_mutex);
+	remakeResamplers();
+}
+
+void ArbitraryRateResampler_i::outputRateChanged(const float *oldValue, const float *newValue)
 {
 	//if the output changes we must remake the resamplers and refresh the SRI to let downstream people know we have a new sample rate
-	remakeResamplers();
-    refreshSRI=true;
+	boost::mutex::scoped_lock lock(resampler_mutex);
+	if (outputRate == 0) {
+		outputRate = *oldValue;
+	} else {
+		remakeResamplers();
+		refreshSRI=true;
+	}
 }
-void ArbitraryRateResampler_i::quantizationChanged(const std::string&)
+
+void ArbitraryRateResampler_i::quantizationChanged(const unsigned int *oldValue, const unsigned int *newValue)
 {
-	remakeResamplers();
-}
-void ArbitraryRateResampler_i::aChanged(const std::string&)
-{
+	boost::mutex::scoped_lock lock(resampler_mutex);
 	remakeResamplers();
 }
 
