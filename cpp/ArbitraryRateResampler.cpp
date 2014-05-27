@@ -36,8 +36,6 @@ ArbitraryRateResampler_i::ArbitraryRateResampler_i(const char *uuid, const char 
 	addPropertyChangeListener("a", this, &ArbitraryRateResampler_i::aChanged);
 	addPropertyChangeListener("outputRate", this, &ArbitraryRateResampler_i::outputRateChanged);
 	addPropertyChangeListener("quantization", this, &ArbitraryRateResampler_i::quantizationChanged);
-
-	outputRate = 1.0;
 }
 
 ArbitraryRateResampler_i::~ArbitraryRateResampler_i()
@@ -184,7 +182,7 @@ void ArbitraryRateResampler_i::outputRateChanged(const float *oldValue, const fl
 {
 	//if the output changes we must remake the resamplers and refresh the SRI to let downstream people know we have a new sample rate
 	boost::mutex::scoped_lock lock(resampler_mutex);
-	if (outputRate == 0) {
+	if (outputRate <= 0) {
 		outputRate = *oldValue;
 	} else {
 		remakeResamplers();

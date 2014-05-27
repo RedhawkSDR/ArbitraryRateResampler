@@ -80,6 +80,7 @@ void ArbitraryRateResampler_base::releaseObject() throw (CORBA::SystemException,
 void ArbitraryRateResampler_base::loadProperties()
 {
     addProperty(outputRate,
+                1.0,
                 "outputRate",
                 "",
                 "readwrite",
