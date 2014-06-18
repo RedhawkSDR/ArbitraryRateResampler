@@ -99,7 +99,7 @@ int ArbitraryRateResampler_i::serviceFunction()
 		ArbitraryRateResamplerClass* ptr = new ArbitraryRateResamplerClass(inputRate, outputRate, a, quantization, realOut, cmplxOut);
 		i=resamplers.insert(resamplers.end(), std::pair<std::string,ArbitraryRateResamplerClass*>(streamID, ptr));
 	}
-	//get the resampler from the iterator to use bellow
+	//get the resampler from the iterator to use below
 	ArbitraryRateResamplerClass* resampler=i->second;
 
 	//check the data rate to make sure it is OK and regenerate a new resampler if it has changed

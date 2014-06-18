@@ -346,6 +346,7 @@ class ComponentTests(ossie.utils.testing.ScaComponentTestCase):
         assert(len(outData)==1)
         outputPackets = outData[streamName]
         self.verifyOutputStream(outputPackets, gen)
+        self.validateSRIPushing(streamName, self.comp.outputRate, False)
 
     def testUpSample(self):
         """upsample real data
@@ -364,6 +365,7 @@ class ComponentTests(ossie.utils.testing.ScaComponentTestCase):
         assert(len(outData)==1)
         outputPackets = outData[streamName]
         self.verifyOutputStream(outputPackets, gen)
+        self.validateSRIPushing(streamName, self.comp.outputRate, False)
 
     def testDownSampleCx(self):
         """down sample complex data
@@ -383,6 +385,7 @@ class ComponentTests(ossie.utils.testing.ScaComponentTestCase):
         assert(len(outData)==1)
         outputPackets = outData[streamName]
         self.verifyOutputStream(outputPackets, gen)
+        self.validateSRIPushing(streamName, self.comp.outputRate, True)
 
     def testUpSampleCx(self):
         """up sample complex data
@@ -402,6 +405,7 @@ class ComponentTests(ossie.utils.testing.ScaComponentTestCase):
         assert(len(outData)==1)
         outputPackets = outData[streamName]
         self.verifyOutputStream(outputPackets, gen)
+        self.validateSRIPushing(streamName, self.comp.outputRate, True)
 
     def testChangeA(self):
         """ change the parameter "a" and verify the componet functions properly
@@ -426,6 +430,7 @@ class ComponentTests(ossie.utils.testing.ScaComponentTestCase):
         assert(len(outData)==1)
         outputPackets = outData[streamName]
         self.verifyOutputStream(outputPackets, gen)
+        self.validateSRIPushing(streamName, self.comp.outputRate, False)
 
     def testChangeQuantization(self):
         """ change the parameter "quantization" and verify the componet functions properly
@@ -448,6 +453,7 @@ class ComponentTests(ossie.utils.testing.ScaComponentTestCase):
         assert(len(outData)==1)
         outputPackets = outData[streamName]
         self.verifyOutputStream(outputPackets, gen)
+        self.validateSRIPushing(streamName, self.comp.outputRate, False)
 
     def testChangeOutputRate(self):
         """ change the parameter "outputRate" and verify the componet functions properly
@@ -470,6 +476,7 @@ class ComponentTests(ossie.utils.testing.ScaComponentTestCase):
         assert(len(outData)==1)
         outputPackets = outData[streamName]
         self.verifyOutputStream(outputPackets, gen,constOutputRate=False)
+        self.validateSRIPushing(streamName, self.comp.outputRate, False)
 
     def testChangeInputRate(self):
         """change the input sample rate and ensure the component resamples appropraitely
@@ -494,6 +501,7 @@ class ComponentTests(ossie.utils.testing.ScaComponentTestCase):
         assert(len(outData)==1)
         outputPackets = outData[streamName]
         self.verifyOutputStream(outputPackets, gen,constOutputRate=False)
+        self.validateSRIPushing(streamName, self.comp.outputRate, False)
 
     def testMultiStream(self):
         """send multiple streams and make sure the component resmaples them independently
@@ -557,6 +565,7 @@ class ComponentTests(ossie.utils.testing.ScaComponentTestCase):
         start, delta, isCmplx, dataSamples=outputPackets[0]
         assert(isCmplx==False)
         nextStart = self.verifyOutputPacket(start, delta, isCmplx, dataSamples, genA)
+
         start, delta, isCmplx, dataSamples=outputPackets[1]
         assert(isCmplx==True)
         self.verifyOutputPacket(start, delta, isCmplx, dataSamples, genB,nextStart)
@@ -671,7 +680,18 @@ class ComponentTests(ossie.utils.testing.ScaComponentTestCase):
                 break
             time.sleep(.1)
         return output
+    
+    def validateSRIPushing(self, streamID='test_stream', outputRate=1.0, cmplx = False):
         
+        self.assertEqual(self.sink.sri().streamID, streamID, "Component not pushing streamID properly")
+        self.assertEqual(self.sink.sri().mode, cmplx)
+        # Account for rounding error
+        calcSR = 1/self.sink.sri().xdelta
+        diffSR = abs(calcSR-outputRate)
+        tolerance = 1
+        self.assertTrue(diffSR < tolerance, "Component not pushing samplerate properly for AM port")
+
+            
     # TODO Add additional tests here
     #
     # See:
