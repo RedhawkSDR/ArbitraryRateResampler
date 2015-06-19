@@ -27,7 +27,7 @@ Prefix:         %{_prefix}
 %define _mandir        %{_prefix}/man
 %define _infodir       %{_prefix}/info
 
-Name:           ArbitraryRateResampler
+Name:           rh.ArbitraryRateResampler
 Version:        1.0.1
 Release:        1%{?dist}
 Summary:        Component %{name}
@@ -37,8 +37,8 @@ License:        LGPLv3+
 Source0:        %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  redhawk-devel >= 1.10.0
-Requires:       redhawk >= 1.10.0
+BuildRequires:  redhawk-devel >= 1.10
+Requires:       redhawk >= 1.10
 
 # Interface requirements
 BuildRequires:  bulkioInterfaces
@@ -62,7 +62,7 @@ Component %{name}
 # Implementation cpp
 pushd cpp
 ./reconf
-%define _bindir %{_prefix}/dom/components/ArbitraryRateResampler/cpp
+%define _bindir %{_prefix}/dom/components/rh/ArbitraryRateResampler/cpp
 %configure
 make %{?_smp_mflags}
 popd
@@ -72,7 +72,7 @@ popd
 rm -rf $RPM_BUILD_ROOT
 # Implementation cpp
 pushd cpp
-%define _bindir %{_prefix}/dom/components/ArbitraryRateResampler/cpp
+%define _bindir %{_prefix}/dom/components/rh/ArbitraryRateResampler/cpp
 make install DESTDIR=$RPM_BUILD_ROOT
 popd
 
@@ -83,9 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,redhawk,redhawk,-)
-%dir %{_prefix}/dom/components/%{name}
-%{_prefix}/dom/components/%{name}/ArbitraryRateResampler.scd.xml
-%{_prefix}/dom/components/%{name}/ArbitraryRateResampler.prf.xml
-%{_prefix}/dom/components/%{name}/ArbitraryRateResampler.spd.xml
-%{_prefix}/dom/components/%{name}/cpp
+%dir %{_prefix}/dom/components/rh/ArbitraryRateResampler
+%{_prefix}/dom/components/rh/ArbitraryRateResampler/ArbitraryRateResampler.scd.xml
+%{_prefix}/dom/components/rh/ArbitraryRateResampler/ArbitraryRateResampler.prf.xml
+%{_prefix}/dom/components/rh/ArbitraryRateResampler/ArbitraryRateResampler.spd.xml
+%{_prefix}/dom/components/rh/ArbitraryRateResampler/cpp
 

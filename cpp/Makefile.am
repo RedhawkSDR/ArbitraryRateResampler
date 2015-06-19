@@ -15,11 +15,11 @@
 # You should have received a copy of the GNU Lesser General Public License along with this 
 # program.  If not, see http://www.gnu.org/licenses/.
 # 
-ossieName = ArbitraryRateResampler
-bindir = $(prefix)/dom/components/ArbitraryRateResampler/cpp/
+ossieName = rh.ArbitraryRateResampler
+bindir = $(prefix)/dom/components/rh/ArbitraryRateResampler/cpp/
 bin_PROGRAMS = ArbitraryRateResampler
 
-xmldir = $(prefix)/dom/components/ArbitraryRateResampler/
+xmldir = $(prefix)/dom/components/rh/ArbitraryRateResampler/
 dist_xml_DATA = ../ArbitraryRateResampler.scd.xml ../ArbitraryRateResampler.prf.xml ../ArbitraryRateResampler.spd.xml
 
 distclean-local:
