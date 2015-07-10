@@ -25,4 +25,4 @@ redhawk_SOURCES_auto += ArbitraryRateResampler.h
 redhawk_SOURCES_auto += ArbitraryRateResampler_base.cpp
 redhawk_SOURCES_auto += ArbitraryRateResampler_base.h
 redhawk_SOURCES_auto += main.cpp
-redhawk_INCLUDES_auto = -I/var/redhawk/sdr/dom/deps/dsp/cpp/include
+redhawk_INCLUDES_auto = -I/var/redhawk/sdr/dom/deps/rh/dsp/include
