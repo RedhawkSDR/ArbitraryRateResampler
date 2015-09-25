@@ -16,6 +16,9 @@
 # You should have received a copy of the GNU Lesser General Public License along with this 
 # program.  If not, see http://www.gnu.org/licenses/.
 #
+
+DEBUG_LEVEL=3 # 3=INFO, 4=DEBUG, 5=TRACE
+
 import ossie.utils.testing
 from ossie.utils import sb
 import os
@@ -38,7 +41,7 @@ from bulkio.bulkioInterfaces import BULKIO, BULKIO__POA
 import math
 
 class MyArraySink(ArraySink):
-    """Subclas ArraySink to help track data in streams more effectively
+    """Subclass ArraySink to help track data in streams more effectively
     """
     def __init__(self, porttype):
         ArraySink.__init__(self, porttype)
@@ -284,6 +287,7 @@ class ComponentTests(ossie.utils.testing.ScaComponentTestCase):
         # Launch the component with the default execparams
         execparams = self.getPropertySet(kinds=("execparam",), modes=("readwrite", "writeonly"), includeNil=False)
         execparams = dict([(x.id, any.from_any(x.value)) for x in execparams])
+        execparams['DEBUG_LEVEL'] = DEBUG_LEVEL
         self.launch(execparams)
         
         #######################################################################
