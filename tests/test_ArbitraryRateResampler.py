@@ -325,7 +325,6 @@ class ComponentTests(ossie.utils.testing.ScaComponentTestCase):
     def testScaBasicBehavior(self):          
         #######################################################################
         # Make sure start and stop can be called without throwing exceptions
-        self.setupComponent()
         self.comp.start()
         self.comp.stop()
         
