@@ -41,7 +41,7 @@ class ArbitraryRateResampler_i : public ArbitraryRateResampler_base
 
         void aChanged(const unsigned short *oldValue, const unsigned short *newValue);
         void outputRateChanged(const float *oldValue, const float *newValue);
-        void quantizationChanged(const unsigned int *oldValue, const unsigned int *newValue);
+        void quantizationChanged(const CORBA::ULong *oldValue, const CORBA::ULong *newValue);
         void remakeResamplers();
         void remakeResampler(float* inputRate, std::map<std::string, ArbitraryRateResamplerClass*>::iterator& i);
         std::vector<float> realOut;

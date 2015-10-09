@@ -188,7 +188,7 @@ void ArbitraryRateResampler_i::outputRateChanged(const float *oldValue, const fl
     }
 }
 
-void ArbitraryRateResampler_i::quantizationChanged(const unsigned int *oldValue, const unsigned int *newValue)
+void ArbitraryRateResampler_i::quantizationChanged(const CORBA::ULong *oldValue, const CORBA::ULong *newValue)
 {
     boost::mutex::scoped_lock lock(resampler_mutex);
     remakeResamplers();
