@@ -332,6 +332,41 @@ class ComponentTests(ossie.utils.testing.ScaComponentTestCase):
         # Simulate regular component shutdown
         self.comp.releaseObject()
 
+    def testEOS(self):
+        
+        self.comp.outputRate=500
+        self.comp.a=7
+        self.comp.quantization=1e4
+        inputRate =16123.45
+
+        gen=FunctionGenerator(f)
+        inData = gen.makeSig(0, inputRate, 5000)[0]
+
+
+       # self.src = sb.DataSource()
+       # self.sink = sb.DataSink()
+       # self.src.connect(self.comp)        
+       # self.comp.connect(self.sink)
+        
+        self.src.push(inData,complexData=False, sampleRate=inputRate, EOS=False,streamID="someSRI")
+        count = 0
+        output = []
+        while True:
+            newData = self.sink.getData()
+            if newData:
+                count = 0
+                output.extend(newData)
+            elif count==200:
+                break
+            time.sleep(.01)
+            count+=1
+
+        print "Datat Output " , len(output)
+        self.assertFalse(self.sink.eos())
+        self.src.push([],complexData=False, sampleRate=inputRate, EOS=True,streamID="someSRI")
+        time.sleep(.1)
+        self.assertTrue(self.sink.eos())
+
     def testDownSample(self):
         """downsample real data
         """

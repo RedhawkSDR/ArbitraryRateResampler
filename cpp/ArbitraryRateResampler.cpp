@@ -164,7 +164,12 @@ int ArbitraryRateResampler_i::serviceFunction()
             tmp->T.tcstatus =BULKIO::TCS_INVALID;
         dataFloat_out->pushPacket(realOut, tmp->T, tmp->EOS, tmp->streamID);
     }
-
+    // If no Data but EOS is True then push and empty packet with EOS True
+    if (cmplxOut.empty() && realOut.empty() &&tmp->EOS){
+		std::vector<float> emptyOutput;
+		LOG_DEBUG(ArbitraryRateResampler_i, "Pushing Empty Data with EOS True");
+		dataFloat_out->pushPacket(emptyOutput, tmp->T, tmp->EOS, tmp->streamID);
+    }
     //we are all done - delete the data packet and return norml
     delete tmp;
     return NORMAL;
